@@ -1,9 +1,10 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import './Calculator.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faMinus, faDivide, faTimes, faEquals, faCircle } from '@fortawesome/free-solid-svg-icons';
-
+//let textLeft = { textAlign: "left" };
 const Calculator = () => {
+    const [isLeft, setIsLeft] = useState(false);
     let inputValue = useRef();
     const handleBtns = (e) => {
         if (e.target.id) {
@@ -28,6 +29,7 @@ const Calculator = () => {
             else if (e.target.id === "equ") {
                 let result = eval(inputValue.current.value);
                 inputValue.current.value = "";
+                setIsLeft(true);
                 (inputValue.current.value) += result;
             }
         }
@@ -45,7 +47,7 @@ const Calculator = () => {
         <div className="calc-container">
             <div className="calc-body">
                 <div className="screen">
-                    <input type="text" ref={inputValue} />
+                    <input className={isLeft && "textLeft"} type="text" ref={inputValue} />
                 </div>
 
                 <div className="btn" onClick={handleBtns}>
